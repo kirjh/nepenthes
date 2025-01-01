@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dco17hvgwap3y"]
+
+[ext_resource type="Script" path="res://Playership.cs" id="1_7476o"]
+[ext_resource type="Texture2D" uid="uid://kre8i5c0dswm" path="res://art/player ships/zephyranthes.png" id="1_nomo7"]
+
+[node name="Playership" type="CharacterBody2D"]
+script = ExtResource("1_7476o")
+RotationSpeed = 15.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("1_nomo7")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-10, -15, -14, -11, -14, 11, -10, 15, 13, 2, 13, -2)

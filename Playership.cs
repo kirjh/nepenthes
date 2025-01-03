@@ -11,21 +11,41 @@ public partial class Playership : CharacterBody2D
 	public float Acceleration {get; set;} = 10f;
 	[Export]
 	public float RotationSpeed {get; set;} = 5f;
-	private float _rotationDirection;
 
-	private float Accelerate(string throttleKey, string dethrottleKey) {
-		float _speed = Mathf.Clamp(Input.GetAxis(dethrottleKey, throttleKey) * Acceleration, -1 * MaxSpeed, MaxSpeed);
-		return _speed;
+	public override void _Ready() {
+		GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		var newAcceleration = new Vector2(1,0) * Acceleration;
-		_rotationDirection = Input.GetAxis("left", "right");
-		Rotation += _rotationDirection * RotationSpeed * (float)delta;
+		// Set Acceleration and Rotation respectively.
+		var newAcceleration = new Vector2(1,0) * Input.GetAxis("down", "up") * Acceleration;
+		var sideAcceleration = new Vector2(0,1) * Input.GetAxis("left", "right") * Acceleration/4;
+		var targetAngle = Position.AngleToPoint(GetGlobalMousePosition()) - Rotation;
 
-		Velocity = (Velocity + newAcceleration.Rotated(Rotation) * Input.GetAxis("down", "up")).LimitLength(MaxSpeed);
+		if (Mathf.Abs(targetAngle) < RotationSpeed * (float)delta) {
+			LookAt(GetGlobalMousePosition());
+		} else {
+			var _multiplier = 1;
+			if ((targetAngle > 0 && targetAngle > Math.PI) || (targetAngle < 0 && targetAngle > -1 * Math.PI)) {
+				_multiplier = -1;
+			}
+			Rotation += _multiplier * RotationSpeed * (float)delta;
+		}	
 
+		newAcceleration = newAcceleration.Rotated(Rotation);
+		sideAcceleration = sideAcceleration.Rotated(Rotation);
+
+		// Constrain Velocity to MaxSpeed.
+		Velocity = (Velocity + newAcceleration + sideAcceleration).LimitLength(MaxSpeed);
+
+		// Disable Particles if not moving.
+		var Particles = GetNode<CpuParticles2D>("CPUParticles2D");
+		Particles.InitialVelocityMin = Velocity.Length() / 7;
+		Particles.InitialVelocityMax = Velocity.Length() / 5;
+		Particles.Emitting = (Velocity.Length() < Acceleration) ? false : true;
+
+		// Process Decceleration.
 		if (Input.IsActionPressed("stop")) {
 			if (!Velocity.IsZeroApprox()) {
 				Velocity += -1 * Velocity.LimitLength(Acceleration);;

@@ -1,16 +1,69 @@
-[gd_scene load_steps=3 format=3 uid="uid://dco17hvgwap3y"]
+[gd_scene load_steps=11 format=3 uid="uid://dco17hvgwap3y"]
 
 [ext_resource type="Script" path="res://Playership.cs" id="1_7476o"]
-[ext_resource type="Texture2D" uid="uid://kre8i5c0dswm" path="res://art/player ships/zephyranthes.png" id="1_nomo7"]
+[ext_resource type="Texture2D" uid="uid://os7t1lhkcufo" path="res://art/player ships/01_starfighter0000.png" id="2_esrb6"]
+[ext_resource type="Texture2D" uid="uid://cy33dgl4nbr2p" path="res://art/player ships/01_starfighter0003.png" id="3_1sr76"]
+[ext_resource type="Texture2D" uid="uid://bvhvfwy8s2rqq" path="res://art/player ships/01_starfighter0006.png" id="4_qjjwy"]
+[ext_resource type="Texture2D" uid="uid://cak8sk2kuhj8v" path="res://art/player ships/01_starfighter0009.png" id="5_x4kws"]
+[ext_resource type="Texture2D" uid="uid://bysqjahoyko2u" path="res://art/player ships/playership1.png" id="6_mmc85"]
+
+[sub_resource type="Curve" id="Curve_gninr"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, -200), -662.046, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_l06n1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5rk2"]
+size = Vector2(12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rpt6a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_esrb6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1sr76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qjjwy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_x4kws")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [node name="Playership" type="CharacterBody2D"]
 script = ExtResource("1_7476o")
-RotationSpeed = 15.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 6
+direction = Vector2(-1, 0)
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 50.0
+linear_accel_curve = SubResource("Curve_gninr")
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_l06n1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_y5rk2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_rpt6a")
+frame_progress = 0.248633
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
-scale = Vector2(2, 2)
-texture = ExtResource("1_nomo7")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-10, -15, -14, -11, -14, 11, -10, 15, 13, 2, 13, -2)
+texture = ExtResource("6_mmc85")

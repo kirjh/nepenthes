@@ -41,8 +41,8 @@ public partial class Playership : CharacterBody2D
 
 		// Disable Particles if not moving.
 		var Particles = GetNode<CpuParticles2D>("CPUParticles2D");
-		Particles.InitialVelocityMin = Velocity.Length() / 7;
-		Particles.InitialVelocityMax = Velocity.Length() / 5;
+		//Particles.InitialVelocityMin = Velocity.Length() / 7;
+		//Particles.InitialVelocityMax = Velocity.Length() / 5;
 		Particles.Emitting = (Velocity.Length() < Acceleration) ? false : true;
 
 		// Process Decceleration.

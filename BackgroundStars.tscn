@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://jdte05u2wpe2"]
+
+[ext_resource type="Texture2D" uid="uid://ttwggshnacqy" path="res://art/stars_spritesheet.png" id="1_qvyp4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7046d"]
+atlas = ExtResource("1_qvyp4")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g33s8"]
+atlas = ExtResource("1_qvyp4")
+region = Rect2(0, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20rq4"]
+atlas = ExtResource("1_qvyp4")
+region = Rect2(0, 360, 640, 360)
+
+[node name="ParallaxNode" type="Node2D"]
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.45, 0.45)
+repeat_size = Vector2(640, 360)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(320, 180)
+texture = SubResource("AtlasTexture_7046d")
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.35, 0.35)
+repeat_size = Vector2(640, 360)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(320, 180)
+texture = SubResource("AtlasTexture_g33s8")
+
+[node name="Parallax2D3" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.25, 0.25)
+repeat_size = Vector2(640, 360)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3"]
+position = Vector2(320, 180)
+texture = SubResource("AtlasTexture_20rq4")
+flip_h = true

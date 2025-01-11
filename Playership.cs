@@ -6,7 +6,7 @@ using System.Security;
 public partial class Playership : CharacterBody2D
 {
 	[Signal]
-	public delegate void CollidedEventHandler(float amount);
+	public delegate void CollidedEventHandler(float speed);
 	[Export]
 	public float MaxSpeed {get; set;} = 300f;
 	[Export]
@@ -58,7 +58,9 @@ public partial class Playership : CharacterBody2D
 		//GD.Print(Rotation + " | " + Velocity.X + ", " + Velocity.Y);
 		var collision = MoveAndCollide(Velocity * (float)delta);
 		if (collision != null) {
-			EmitSignal(SignalName.Collided, 1f);
+			// Camera Shake
+			EmitSignal(SignalName.Collided, Velocity.Length() / MaxSpeed);
+			// Bounce
 			Velocity = Velocity.Bounce(collision.GetNormal()) / 2;
 		}
 	}

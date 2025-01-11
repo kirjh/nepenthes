@@ -10,7 +10,7 @@
 radius = 128.004
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xw4an"]
-size = Vector2(114, 97)
+size = Vector2(886, 151)
 
 [sub_resource type="LabelSettings" id="LabelSettings_krdx8"]
 font = ExtResource("3_03s5n")
@@ -42,6 +42,7 @@ shape = SubResource("CircleShape2D_j200q")
 disabled = true
 
 [node name="Playership" parent="." instance=ExtResource("1_c12r2")]
+scale = Vector2(0.883055, 0.831123)
 
 [node name="PlayerCamera" type="Camera2D" parent="Playership"]
 script = ExtResource("3_lrfso")
@@ -55,9 +56,10 @@ offset_left = 54.0
 offset_top = 27.0
 offset_right = 168.0
 offset_bottom = 124.0
+scale = Vector2(7.76978, 1.55072)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TempBody"]
-position = Vector2(111, 75.5)
+position = Vector2(497, 102.5)
 shape = SubResource("RectangleShape2D_xw4an")
 
 [node name="Label" type="Label" parent="."]

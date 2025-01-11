@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://btd34s8td4jfc"]
+[gd_scene load_steps=9 format=3 uid="uid://btd34s8td4jfc"]
 
 [ext_resource type="PackedScene" uid="uid://dco17hvgwap3y" path="res://Playership.tscn" id="1_c12r2"]
 [ext_resource type="Texture2D" uid="uid://d0r6p3juw0irp" path="res://art/planet.png" id="1_m5aac"]
 [ext_resource type="FontFile" uid="uid://bec5kpnynjjnd" path="res://Xylem Pixel.ttf" id="3_03s5n"]
+[ext_resource type="Script" path="res://PlayerCamera.cs" id="3_lrfso"]
 [ext_resource type="PackedScene" uid="uid://jdte05u2wpe2" path="res://BackgroundStars.tscn" id="4_wryhv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j200q"]
@@ -42,7 +43,8 @@ disabled = true
 
 [node name="Playership" parent="." instance=ExtResource("1_c12r2")]
 
-[node name="Camera2D2" type="Camera2D" parent="Playership"]
+[node name="PlayerCamera" type="Camera2D" parent="Playership"]
+script = ExtResource("3_lrfso")
 
 [node name="TempBody" type="StaticBody2D" parent="."]
 position = Vector2(340, 102)
@@ -75,3 +77,5 @@ emission_rect_extents = Vector2(1280, 720)
 gravity = Vector2(0, 0)
 
 [node name="CanvasLayer2" parent="." instance=ExtResource("4_wryhv")]
+
+[connection signal="Collided" from="Playership" to="Playership/PlayerCamera" method="OnPlayerShipCollided"]

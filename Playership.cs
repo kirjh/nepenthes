@@ -54,6 +54,9 @@ public partial class Playership : CharacterBody2D
 			}
 		}
 		//GD.Print(Rotation + " | " + Velocity.X + ", " + Velocity.Y);
-		MoveAndSlide();
+		var collision = MoveAndCollide(Velocity * (float)delta);
+		if (collision != null) {
+			Velocity = Velocity.Bounce(collision.GetNormal()) / 2;
+		}
 	}
 }
